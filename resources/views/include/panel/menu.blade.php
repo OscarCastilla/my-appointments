@@ -1,8 +1,17 @@
    <!-- Nav items -->
    <h6 class="navbar-heading p-0 text-muted">
+     @if(auth()->user()->role=='admin')
     <span class="docs-normal">Gestionar datos</span>
+    @else 
+    <span class="docs-normal">Menu</span>
+    @endif
   </h6>
    <ul class="navbar-nav">
+
+    @if (auth()->user()->role=='admin')
+        
+
+
     <li class="nav-item">
       <a class="nav-link active" href="/home">
         <i class="ni ni-tv-2 text-primary"></i>
@@ -27,6 +36,42 @@
         <span class="nav-link-text text-info">Pacientes</span>
       </a>
     </li>
+    @elseif(auth()->user()->role=='doctor')
+    <li class="nav-item">
+      <a class="nav-link active" href="/schedule">
+        <i class="ni ni-calendar-grid-58 text-primary"></i>
+        <span class="nav-link-text">Gestionar Horario</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/specialties">
+        <i class="ni ni-time-alarm text-primary"></i>
+        <span class="nav-link-text">Mis Citas</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/specialties">
+        <i class="ni ni-satisfied text-info"></i>
+        <span class="nav-link-text">Mis Pacientes</span>
+      </a>
+    </li>
+
+    @else{{--patient--}}
+    <li class="nav-item">
+      <a class="nav-link" href="/specialties">
+        <i class="ni ni-send text-danger"></i>
+        <span class="nav-link-text">Recervar cita</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/specialties">
+        <i class="ni ni-time-alarm text-primary"></i>
+        <span class="nav-link-text">Mis Citas</span>
+      </a>
+    </li>
+    
+ 
+    @endif
   
     <li class="nav-item">
       <a class="nav-link" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('formLogout').submit()">
@@ -39,6 +84,8 @@
     </li>
 
   </ul>
+
+  @if(auth()->user()->role=='admin')
   <!-- Divider -->
   <hr class="my-3">
   <!-- Heading -->
@@ -63,3 +110,4 @@
    
     
   </ul>
+  @endif
